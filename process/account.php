@@ -7,6 +7,11 @@ use Core\Request;
 // get data
 $db = new Database();
 
+if(!auth()){
+    header('location:'.routeTo('landing/login'));
+   die;
+}
+
 $db->query = "SELECT * FROM invoices
                         WHERE user_id = " .auth()->id ."
                         ORDER BY invoices.id DESC 

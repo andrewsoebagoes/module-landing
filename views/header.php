@@ -20,9 +20,28 @@
     <link rel="stylesheet" href="<?= asset('assets/landing/dependencies/jquery-ui/css/jquery-ui.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?= asset('assets/landing/dependencies/venobox/css/venobox.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?= asset('assets/landing/dependencies/slick-carousel/css/slick.css') ?>" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <!-- Site Stylesheet -->
     <link rel="stylesheet" href="<?= asset('assets/landing/assets/css/app.css') ?>" type="text/css">
+
+    <style>
+        @media screen and (max-width: 768px) {
+            .top-cart a>span {
+                position: absolute;
+                top: 8px;
+                right: -5px;
+                font-size: 12px;
+                color: #fff;
+                background: #747474;
+                height: 15px;
+                width: 15px;
+                border-radius: 50px;
+                text-align: center;
+                line-height: 15px;
+            }
+        }
+    </style>
 
 
 
@@ -66,8 +85,8 @@
                                 </div>
                                 <?php if (auth()) : ?>
                                     <a href="<?= routeTo('landing/account') ?>" class="my-account">My Account</a>
-                                    <?php else : ?>
-                                        <a href="<?= routeTo('landing/login') ?>" class="my-account">My Account</a>
+                                <?php else : ?>
+                                    <a href="<?= routeTo('landing/login') ?>" class="my-account">My Account</a>
                                 <?php endif ?>
                             </div>
                             <!--top-bar-right end-->
@@ -78,11 +97,8 @@
                 </div>
                 <!--container end-->
             </div>
-
             <!-- Main Menu
 		============================================= -->
-
-
             <div class="container-fluid custom-container menu-rel-container">
                 <div class="row">
                     <!-- Logo
@@ -104,6 +120,7 @@
                             <ul id="navigation">
 
                                 <li><a href="<?= routeTo('landing/index') ?>">Home</a></li>
+                                <li><a href="<?= routeTo('landing/cart') ?>">View Cart</a></li>
                                 <?php if (auth()) : ?>
                                     <li><a href="<?= routeTo('landing/logout') ?>">Logout</a></li>
                                 <?php else : ?>
@@ -113,38 +130,11 @@
                         </div>
                     </div>
                     <!--Menu container end-->
-
-
                     <div class="col-lg-2 col-xl-2 order-lg-2 order-xl-3">
                         <div class="header-right-menu">
                             <ul>
-                                <!-- <li class="top-search style-two"><a href="javascript:void(0)"><i class="flaticon-magnifying-glass"></i></a>
-                                    <input type="text" class="search-input" placeholder="Search">
-                                </li> -->
-                                <!-- <li><a href="#"><i class="flaticon-like"></i></a></li> -->
-                                <li class="top-cart"><a href="javascript:void(0)"><i class="flaticon-bag"></i><span>2</span></a>
-
+                                <li class="top-cart"><a href="javascript:;"><i class="flaticon-bag"></i><span></span></a>
                                     <div class="cart-drop">
-                                        <div class="single-cart">
-                                            <div class="cart-img">
-                                                <img alt="" src="media/images/product/car1.jpg">
-                                            </div>
-                                            <div class="cart-title">
-                                                <p><a href="">Aliquam Consequat</a></p>
-                                            </div>
-                                            <div class="cart-price">
-                                                <p>1 x $500</p>
-                                            </div>
-                                            <a href="#"><i class="fa fa-times"></i></a>
-                                        </div>
-
-                                        <div class="cart-bottom">
-
-                                            <div class="cart-checkout">
-                                                <a href="<?= routeTo('landing/cart'); ?>"><i class="fa fa-shopping-cart"></i>View Cart</a>
-                                            </div>
-
-                                        </div>
                                     </div>
                                 </li>
                             </ul>
@@ -158,18 +148,13 @@
         </header>
         <!--Header end-->
 
-
-
         <!--=========================-->
         <!--=        Mobile Header         =-->
         <!--=========================-->
 
-
-
         <header class="mobile-header">
             <div class="container-fluid custom-container">
                 <div class="row">
-
                     <!-- Mobile menu Opener
 					============================================= -->
                     <div class="col-4">
@@ -185,27 +170,12 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="top-cart">
-                            <a href="javascript:void(0)"><i class="fa fa-shopping-cart" aria-hidden="true"></i> (2)</a>
-                            <div class="cart-drop">
-                                <div class="single-cart">
-                                    <div class="cart-title">
-                                        <p><a href="">Aliquam Consequat</a></p>
-                                    </div>
-                                    <div class="cart-price">
-                                        <p>1 x $500</p>
-                                    </div>
-                                    <a href="#"><i class="fa fa-times"></i></a>
+                        <ul>
+                            <li class="top-cart"><a href="javascript:;"><i class="flaticon-bag"></i> <span></span></a>
+                                <div class="cart-drop">
                                 </div>
-
-                                <div class="cart-bottom">
-                                    <div class="cart-checkout">
-                                        <a href="<?= routeTo('landing/cart'); ?>"><i class="fa fa-shopping-cart"></i>View Cart</a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <!-- /.row end -->
@@ -220,22 +190,17 @@
             <div id="mobilemenu" class="accordion">
                 <ul>
                     <li class="mob-logo"><a href="<?= routeTo('landing/index') ?>">
-                            <img src="media/images/logo.png" alt="">
+                            <img src="<?= asset('assets/landing/media/images/logo.png'); ?>" alt="">
                         </a></li>
                     <li><a href="#" class="closeme"><i class="flaticon-close"></i></a></li>
-                    <li>
-                        <a href="<?= routeTo('landing/index') ?>" class="link">Home</a>
+                    <li class="out-link"><a href="<?= routeTo('landing/index') ?>">Home</a></li>
+                    <?php if (auth()) : ?>
+                        <li class="out-link"><a href="<?= routeTo('landing/logout') ?>">Logout</a></li>
 
-                    </li>
-                    <li>
-                        <?php if (auth()) : ?>
-                            <a href="<?= routeTo('landing/logout') ?>" class="link">Logout</a>
-                        <?php else : ?>
-                            <a href="<?= routeTo('landing/login') ?>" class="link">Login</a>
-                        <?php endif ?>
-                    </li>
+                    <?php else : ?>
+                        <li class="out-link"><a href="<?= routeTo('landing/login') ?>">Login</a></li>
 
-
+                    <?php endif ?>
                 </ul>
                 <div class="mobile-login">
                     <a href="<?= routeTo('landing/login'); ?>">Log in</a> |
@@ -244,7 +209,6 @@
 
             </div>
         </div>
-
 
         <!--=========================-->
         <!--=        Breadcrumb         =-->

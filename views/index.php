@@ -1,94 +1,132 @@
-<?= including('modules/landing/views/header');;?>
+<?= including('modules/landing/views/header');; ?>
 
-        <!--=========================-->
-        <!--=        Shop area          =-->
-        <!--=========================-->
+<!--=========================-->
+<!--=        Shop area          =-->
+<!--=========================-->
 
-        <section class="shop-area">
-            <div class="container-fluid custom-container">
-                <div class="row">
+<section class="shop-area">
+    <div class="container-fluid custom-container">
+        <div class="row">
 
-                    <div class="col-12">
-                        <div class="shop-sorting-area row">
-                            <div class="col-4 col-sm-4 col-md-6">
-                                <ul class="nav nav-tabs shop-btn" id="myTab" role="tablist">
+            <div class="col-12">
+                <div class="shop-sorting-area row">
+                    <div class="col-4 col-sm-4 col-md-6">
+                        <ul class="nav nav-tabs shop-btn" id="myTab" role="tablist">
 
 
-                                </ul>
-                            </div>
-                            <!-- /.col-xl-6 -->
-                            <!-- <div class="col-12 col-sm-8 col-md-6">
-                                <div class="sort-by">
-                                    <span>Sort by :</span>
-                                    <select class="orderby" name="orderby">
-                                        <option value="menu_order">Default sorting</option>
-                                        <option value="popularity">Sort by popularity</option>
-                                        <option value="rating">Sort by average rating</option>
-                                        <option value="date">Sort by newness</option>
-                                        <option selected="selected">Best Selling</option>
-                                    </select>
-                                </div>
-                            </div> -->
-                            <!-- /.col-xl-6 -->
-                        </div>
-                        <!-- /.shop-sorting-area -->
-                        <div class="shop-content">
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="row">
-                                        <?php foreach ($products as $product) : ?>
-                                            <div class="col-sm-6 col-xl-3">
-                                                <div class="sin-product style-two">
-                                                    <div class="pro-img">
-                                                        <img src="<?= asset($product->image) ?>" alt="">
-                                                    </div>
-                                                    <div class="mid-wrapper">
-                                                        <h5 class="pro-title"><a href="product.html"><?= $product->product_name; ?></a></h5>
-                                                        <div class="color-variation">
-                                                            <ul>
-                                                                <li><i class="fas fa-circle"></i></li>
-                                                                <li><i class="fas fa-circle"></i></li>
-                                                                <li><i class="fas fa-circle"></i></li>
-                                                                <li><i class="fas fa-circle"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                        <p><span>Rp. <?= number_format($product->price); ?></span></p>
-                                                    </div>
-                                                    <div class="icon-wrapper">
-                                                        <div class="pro-icon">
-                                                            <ul>
-                                                                <li><a href="<?=routeTo('landing/detail-product?product_id='.$product->id_product);?>" ><i class="flaticon-eye"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="add-to-cart">
-                                                            <a href="#">add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /.sin-product -->
-                                            </div>
-
-                                        <?php endforeach ?>
-                                    </div>
-                                </div>
-                                <!-- /.tab-pane -->
-
-                                <!-- /.tab-pane -->
-                            </div>
-                            <!-- /.tab-content -->
-                            <!-- <div class="load-more-wrapper">
-                                <a href="<?=routeTo('landing/register')?>" class="btn-two">Load More</a>
-                            </div> -->
-                            <!-- /.load-more-wrapper -->
-                        </div>
-                        <!-- /.shop-content -->
+                        </ul>
                     </div>
-                    <!-- /.col-xl-9 -->
+                    <form action="post">
+                        <?= csrf_field(); ?>
+                    </form>
                 </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-        </section>
-        <!-- /.shop-area -->
+                <!-- /.shop-sorting-area -->
+                <div class="shop-content">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row productDiscountAll">
+                                
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
 
-  <?=including('modules/landing/views/footer');?>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                    <!-- <div class="load-more-wrapper">
+                                <a href="<?= routeTo('landing/register') ?>" class="btn-two">Load More</a>
+                            </div> -->
+                    <!-- /.load-more-wrapper -->
+                </div>
+                <!-- /.shop-content -->
+            </div>
+            <!-- /.col-xl-9 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.shop-area -->
+
+<?= including('modules/landing/views/footer'); ?>
+<script>
+    <?php
+    // Periksa apakah pengguna memiliki peran yang sesuai
+    $isCustomerRole = isset(auth()->id);
+    ?>
+
+    // Ambil hasil pemeriksaan kondisi dari PHP
+    const isCustomerRole = <?php echo json_encode($isCustomerRole); ?>;
+
+    // Jika pengguna memiliki peran pelanggan, jalankan fungsi cekDiscount()
+    if (isCustomerRole) {
+        cekDiscount();
+    } else {
+        getProduct()
+    }
+
+    function cekDiscount() {
+        const user_id = <?php echo json_encode(isset(auth()->id) && auth()->id ? auth()->id : null); ?>;
+
+        $.ajax({
+            url: "<?php echo routeTo('landing/cekDiscount') ?>",
+            method: "POST",
+            data: {
+                _token: document.querySelector('[name=_token]').value,
+                user_id: user_id
+            },
+            success: function(response) {
+                // console.log(response);
+                $('.productDiscountAll').html(response);
+                bindAddToCartEvents()
+            },
+            error: function(xhr, status, error) {
+                console.error(`Error: ${error}`);
+            }
+
+        });
+    }
+
+    function getProduct() {
+
+        $.ajax({
+            url: "<?php echo routeTo('landing/getProduct') ?>",
+            method: "GET",
+            success: function(response) {
+                console.log(response);
+                $('.productDiscountAll').html(response);
+                bindAddToCartEvents()
+            },
+            error: function(xhr, status, error) {
+                console.error(`Error: ${error}`);
+            }
+
+        });
+
+    }
+
+    function bindAddToCartEvents() {
+        document.querySelectorAll('.add-to-cart a').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                console.log('Button clicked!');
+
+                // Ambil data produk dari elemen HTML
+                let productElement = button.closest('.sin-product');
+                let productId = button.id.split('-')[1];
+                let productName = productElement.querySelector('.pro-title a').textContent;
+                let productPrice = parseFloat(productElement.querySelector('.mid-wrapper p span').textContent.replace('Rp. ', '').replace(',', ''));
+
+                let productImage = productElement.querySelector('.pro-img img').src;
+
+                // Tambahkan produk ke keranjang
+                addToCart(productId, productName, productPrice);
+
+                // Perbarui tampilan keranjang
+                displayCartItems();
+
+                alert('Produk berhasil ditambah di keranjang');
+            });
+        });
+    }
+</script>

@@ -22,7 +22,7 @@ if(Request::isMethod('post'))
     if($user)
     {
         Session::set(['user_id'=>$user->id]);
-        header('location:'.routeTo('landing/account'));
+        header('location:'.routeTo('landing/cart'));
         die();
     }
     else

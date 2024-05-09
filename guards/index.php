@@ -11,8 +11,6 @@ if($route == 'landing/detail-product') return true;
 
 $auth = auth();
 
-
-
 if(empty($auth))
 {
     header('location:'.routeTo('auth/login'));
