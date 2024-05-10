@@ -5,7 +5,6 @@ $apiKey = 'c7564e55cb13c4cb02583cbce83a0753';
 // extract($_POST);
 // Ambil data POST dari formulir
 $ekspedisi      = $_POST['courier'];
-$jumlahBarang   = $_POST['jumlah_barang'];
 $distrik        = explode('-', $_POST['destination']);
 $berat          = $_POST['weight'];
 $origin         = env('CODE_KABUPATEN_ASAL'); 

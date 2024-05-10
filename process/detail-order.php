@@ -71,7 +71,8 @@ if (Request::isMethod('POST')) {
 
     $db->insert('invoice_media', [
         'invoice_id' => $invoice_id,
-        'media_id'   => $media->id
+        'media_id'   => $media->id,
+        'status'    => 'Success'
     ]);
 
     // Set flash message
