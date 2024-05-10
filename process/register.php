@@ -11,23 +11,17 @@ $old = get_flash_msg('old');
 
 if (Request::isMethod('post')) {
     extract($_POST);
-    // echo '<pre>';
-    // print_r($_POST);
-    // die();
 
     $db = new Database;
-
     $dataUser = $db->insert('users', [
         'name'      => $name,
         'username'  => $username,
         'password'  => md5($password)
     ]);
 
-    $user_id = $dataUser->id;
-
     $db->insert('user_roles', [
         'user_id'   => $dataUser->id,
-        'role_id'   => 3
+        'role_id'   => env('CUSTOMER_ROLE_ID')
     ]);
 
     set_flash_msg([

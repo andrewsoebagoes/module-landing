@@ -194,17 +194,18 @@
                         </a></li>
                     <li><a href="#" class="closeme"><i class="flaticon-close"></i></a></li>
                     <li class="out-link"><a href="<?= routeTo('landing/index') ?>">Home</a></li>
-                    <?php if (auth()) : ?>
-                        <li class="out-link"><a href="<?= routeTo('landing/logout') ?>">Logout</a></li>
-
-                    <?php else : ?>
-                        <li class="out-link"><a href="<?= routeTo('landing/login') ?>">Login</a></li>
-
-                    <?php endif ?>
+                    <li class="out-link"><a href="<?= routeTo('landing/cart') ?>">View Cart</a></li>
+                    <li class="out-link"><a href="<?= routeTo('landing/account') ?>">Account</a></li>
                 </ul>
                 <div class="mobile-login">
-                    <a href="<?= routeTo('landing/login'); ?>">Log in</a> |
-                    <a href="<?= routeTo('landing/register'); ?>">Create Account</a>
+                    <?php if (auth()) : ?>
+    
+                        <a href="<?= routeTo('landing/logout'); ?>">Log Out</a> 
+                    <?php else : ?>
+                        <a href="<?= routeTo('landing/login'); ?>">Log in</a> |
+    
+                        <a href="<?= routeTo('landing/register'); ?>">Create Account</a>
+                    <?php endif ?>
                 </div>
 
             </div>
