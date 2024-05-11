@@ -9,6 +9,8 @@
     <title><?php get_title() ?></title>
 
     <!-- Fav Icon -->
+    <link rel="shortcut icon" href="<?= env('APP_FAVICON', asset('theme/assets/images/favicon.ico')) ?>">
+
 
     <!-- Dependency Styles -->
     <link rel="stylesheet" href="<?= asset('assets/landing/dependencies/bootstrap/css/bootstrap.min.css') ?>" type="text/css">
@@ -41,6 +43,14 @@
                 line-height: 15px;
             }
         }
+        .logo-mobile {
+            padding-top: 2px;
+            text-align: center;
+        }
+        .logo {
+            padding-top: 25px;
+        }
+
     </style>
 
 
@@ -71,7 +81,7 @@
                             <div class="top-bar-left">
                                 <p><i class="far fa-flag"></i><a href="contact.html">Indonesia, Jakarta</a></p>
 
-                                <p><i class="far fa-envelope"></i><a href="#">admin@mail.com</a></p>
+                                <p><i class="far fa-envelope"></i><a href="#"><?= env('APP_EMAIL') ?></a></p>
                             </div>
                         </div>
                         <!-- Col -->
@@ -79,8 +89,8 @@
                             <div class="top-bar-right">
                                 <div class="social">
                                     <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a href="<?= env('APP_FACEBOOK') ?>" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="<?= env('APP_INSTAGRAM') ?>" target="_blank"><i class="fab fa-instagram"></i></a></li>
                                     </ul>
                                 </div>
                                 <?php if (auth()) : ?>
@@ -106,7 +116,8 @@
                     <div class="col-lg-6 col-xl-3">
                         <div class="logo">
                             <a href="<?= routeTo('landing/index') ?>">
-                                <img src="<?= asset('assets/landing/media/images/logo.png') ?>" alt="">
+                                <img src="<?= env('APP_LOGO', asset('assets/landing/media/images/logo.png')) ?>" alt="logo" width="50">
+
                             </a>
                         </div>
                     </div>
@@ -163,9 +174,9 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="logo">
+                        <div class="logo-mobile">
                             <a href="<?= routeTo('landing/index') ?>">
-                                <img src="<?= asset('assets/landing/media/images/logo.png') ?>" alt="">
+                            <img src="<?= env('APP_LOGO', asset('assets/landing/media/images/logo.png')) ?>" alt="logo" width="50">
                             </a>
                         </div>
                     </div>
@@ -199,11 +210,11 @@
                 </ul>
                 <div class="mobile-login">
                     <?php if (auth()) : ?>
-    
-                        <a href="<?= routeTo('landing/logout'); ?>">Log Out</a> 
+
+                        <a href="<?= routeTo('landing/logout'); ?>">Log Out</a>
                     <?php else : ?>
                         <a href="<?= routeTo('landing/login'); ?>">Log in</a> |
-    
+
                         <a href="<?= routeTo('landing/register'); ?>">Create Account</a>
                     <?php endif ?>
                 </div>

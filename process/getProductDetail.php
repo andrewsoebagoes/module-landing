@@ -68,14 +68,9 @@ echo '
                 <a href="#" id="addCart-' . $products[0]->id_product . '" class="btn btn-outline-warning" style="padding-top:15px;width:210px"><i class="fas fa-plus"></i> Tambah Ke Keranjang</a>
             </div>
         </div>
+        <p>Deskripsi :</p>
         <p>' . $products[0]->description . '</p>
-        <div class="product-social">
-            <span>Share :</span>
-            <ul>
-                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-            </ul>
-        </div>
+        
     </div>
 </div>
 ';
