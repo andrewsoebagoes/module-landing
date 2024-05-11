@@ -44,7 +44,7 @@
             }
         }
         .logo-mobile {
-            padding-top: 2px;
+            padding-top: 12px;
             text-align: center;
         }
         .logo {
@@ -79,7 +79,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="top-bar-left">
-                                <p><i class="far fa-flag"></i><a href="contact.html">Indonesia, Jakarta</a></p>
+                                <p><i class="far fa-flag"></i><a href="contact.html"><?= env('APP_ADDRESS') ?></a></p>
 
                                 <p><i class="far fa-envelope"></i><a href="#"><?= env('APP_EMAIL') ?></a></p>
                             </div>
@@ -116,7 +116,7 @@
                     <div class="col-lg-6 col-xl-3">
                         <div class="logo">
                             <a href="<?= routeTo('landing/index') ?>">
-                                <img src="<?= env('APP_LOGO', asset('assets/landing/media/images/logo.png')) ?>" alt="logo" width="50">
+                                <img src="<?= env('APP_LOGO', asset('assets/landing/media/images/logo.png')) ?>" alt="logo" width="220">
 
                             </a>
                         </div>
@@ -176,7 +176,7 @@
                     <div class="col-4">
                         <div class="logo-mobile">
                             <a href="<?= routeTo('landing/index') ?>">
-                            <img src="<?= env('APP_LOGO', asset('assets/landing/media/images/logo.png')) ?>" alt="logo" width="50">
+                            <img src="<?= env('APP_LOGO', asset('assets/landing/media/images/logo.png')) ?>" alt="logo" width="150">
                             </a>
                         </div>
                     </div>

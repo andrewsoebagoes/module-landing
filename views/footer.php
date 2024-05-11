@@ -8,7 +8,7 @@
          <div class="footer-bottom">
              <div class="row">
                  <div class="col-md-12 col-lg-6 col-xl-6 order-2 order-lg-1">
-                     <p>Copyright © <span>2024</span> ThemeIM Solution • Designed by <a href="#">ThemeIM</a></p>
+                     <p><?=env('APP_FOOTER');?></p>
                  </div>
                  <!-- /.col-xl-6 -->
                  <div class="col-md-12 col-lg-6 col-xl-6 order-1 order-lg-2">
