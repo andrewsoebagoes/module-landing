@@ -51,8 +51,6 @@
  <script src="<?= asset('assets/landing/dependencies/headroom/js/headroom.js') ?>"></script>
  <script src="<?= asset('assets/landing/dependencies/jquery-ui/js/jquery-ui.min.js') ?>"></script>
  <!--Google map api -->
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc')?>"></script>
-
 
  <!-- Site Scripts -->
  <script src="<?= asset('assets/landing/assets/js/app.js') ?>"></script>

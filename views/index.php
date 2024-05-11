@@ -93,7 +93,6 @@
             url: "<?php echo routeTo('landing/getProduct') ?>",
             method: "GET",
             success: function(response) {
-                console.log(response);
                 $('.productDiscountAll').html(response);
                 bindAddToCartEvents()
             },
