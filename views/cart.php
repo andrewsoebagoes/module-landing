@@ -238,12 +238,22 @@
 			tr.appendChild(nameTd);
 
 			// Kolom untuk kuantitas
-			const quantityTd = document.createElement('td');
-			const quantityInput = document.createElement('input');
-			quantityInput.type = 'number';
-			quantityInput.value = item.quantity;
-			quantityTd.appendChild(quantityInput);
-			tr.appendChild(quantityTd);
+            const quantityTd = document.createElement('td');
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'number';
+            quantityInput.value = item.quantity;
+            quantityInput.min = 0; // Tetapkan nilai minimum
+
+            // Tambahkan event listener untuk memastikan nilai tidak kurang dari 0
+            quantityInput.addEventListener('input', function() {
+                if (quantityInput.value < 0) {
+                    quantityInput.value = 0; // Kembalikan nilai ke 0 jika kurang dari 0
+                }
+            });
+
+            quantityTd.appendChild(quantityInput);
+            tr.appendChild(quantityTd);
+
 
 			// Kolom untuk harga per item
 			const priceTd = document.createElement('td');
@@ -418,11 +428,8 @@
 				}
 				// Menyimpan kembali data yang sudah diperbarui ke dalam localStorage
 				localStorage.setItem('cart', JSON.stringify(cartData));
+				displayCart();
 				updateCart();
-				location.reload();
-
-
-
 			},
 			error: function(xhr, status, error) {
 				console.error(`Error: ${error}`);
