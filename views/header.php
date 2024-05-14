@@ -206,7 +206,7 @@
                     <li><a href="#" class="closeme"><i class="flaticon-close"></i></a></li>
                     <li class="out-link"><a href="<?= routeTo('landing/index') ?>">Home</a></li>
                     <li class="out-link"><a href="<?= routeTo('landing/cart') ?>">View Cart</a></li>
-                    <li class="out-link"><a href="<?= routeTo('landing/account') ?>">Account</a></li>
+                    <li class="out-link"><a href="<?= routeTo('landing/account') ?>">My Account</a></li>
                 </ul>
                 <div class="mobile-login">
                     <?php if (auth()) : ?>

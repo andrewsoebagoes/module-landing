@@ -9,7 +9,7 @@ extract($_POST);
 
 $db->query = "
 SELECT
-    products.item_id AS id_product,
+    products.id AS id_product,
     products.sku,
     products.price,
     products.description,
@@ -26,14 +26,14 @@ FROM
 LEFT JOIN product_pics ON product_pics.product_id = products.id
 LEFT JOIN media ON media.id = product_pics.media_id
 LEFT JOIN inventory_items ON inventory_items.id = products.item_id
-LEFT JOIN product_discount ON products.item_id = product_discount.product_id
+LEFT JOIN product_discount ON products.id = product_discount.product_id
 LEFT JOIN discounts ON discounts.id = product_discount.discount_id
 LEFT JOIN discount_applicables ON discount_applicables.user_id = $user_id
 LEFT JOIN discounts AS discount_user ON discount_user.id = discount_applicables.discount_id
 WHERE
-    products.status = 'Ada'
+    products.status = 'PUBLISH'
     AND products.sku > 0
-    AND products.item_id = {$product_id}
+    AND products.id = {$product_id}
     -- Tambahkan kondisi lainnya jika diperlukan
 ";
 

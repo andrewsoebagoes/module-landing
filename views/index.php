@@ -114,12 +114,12 @@
                 let productElement = button.closest('.sin-product');
                 let productId = button.id.split('-')[1];
                 let productName = productElement.querySelector('.pro-title a').textContent;
-                let productPrice = parseFloat(productElement.querySelector('.mid-wrapper p span').textContent.replace('Rp. ', '').replace(',', ''));
+                let final_price = parseFloat(productElement.querySelector('.mid-wrapper p span').textContent.replace('Rp. ', '').replace(',', ''));
 
                 let productImage = productElement.querySelector('.pro-img img').src;
 
                 // Tambahkan produk ke keranjang
-                addToCart(productId, productName, productPrice);
+                addToCart(productId, productName, final_price);
 
                 // Perbarui tampilan keranjang
                 displayCartItems();

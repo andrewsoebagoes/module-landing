@@ -10,6 +10,7 @@ $db = new Database;
 if (Request::isMethod('POST')) {
 
     extract($_POST);
+
     $cartData = json_decode($cartData);
 
     // echo '<pre>';
@@ -53,18 +54,19 @@ if (Request::isMethod('POST')) {
 
         // Dapatkan data produk dari database
         $db->query = "SELECT
-        products.item_id AS id_product,
+        products.id AS id_product,
+        products.item_id,
         products.price,
         products.sku,
         inventory_items.name AS product_name
         FROM products
         JOIN inventory_items ON inventory_items.id = products.item_id
-        WHERE products.item_id = {$productId}";
+        WHERE products.id = {$productId}";
         $product = $db->exec('single');
 
 
         // Hitung harga total barang
-        $itemPrice = $item->productPrice;
+        $itemPrice = $item->final_price;
         $totalBarang = $itemPrice * $quantity;
 
         // Masukkan data ke dalam tabel invoice_items
@@ -81,11 +83,7 @@ if (Request::isMethod('POST')) {
             'total_price'           => $totalBarang
         ]);
 
-        // Kurangi stok produk di tabel products
-        $db->query = ("UPDATE products
-        SET sku = sku - {$quantity}
-        WHERE products.item_id = {$productId}");
-        $db->exec();
+        
     }
 
     $db->insert('invoice_items', [

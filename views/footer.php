@@ -58,7 +58,7 @@
 
  <script>
      // Fungsi untuk menambahkan produk ke keranjang
-     function addToCart(productId, productName, productPrice, productImage) {
+     function addToCart(productId, productName, final_price, productImage) {
          // Ambil data keranjang dari localStorage (jika ada)
          let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -73,7 +73,7 @@
              cart.push({
                  productId,
                  productName,
-                 productPrice,
+                 final_price,
                  productImage,
                  quantity: 1
              });
@@ -125,7 +125,7 @@
                     <p><a href="#">${item.productName}</a></p>
                 </div>
                 <div class="cart-price">
-                    <p>${item.quantity} x ${item.productPrice.toLocaleString('id-ID', {
+                    <p>${item.quantity} x ${item.final_price.toLocaleString('id-ID', {
                         style: 'currency',
                         currency: 'IDR',
                         minimumFractionDigits: 0,

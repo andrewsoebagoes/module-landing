@@ -43,25 +43,25 @@
 
 						<div class="mb-3 mt-3">
 							<label for="" class="">Pilih Provinsi</label>
-							<select class="form-control" id="provinsiTujuan" name="provinsiTujuan" onchange="getKabupatenTujuan(this.value)">
+							<select class="form-control" id="provinsiTujuan" name="provinsiTujuan" onchange="getKabupatenTujuan(this.value)" required>
 
 							</select>
 						</div>
 
 						<div class="mb-3">
 							<label for="" class="">Pilih Kabupaten</label>
-							<select class="form-control" id="kabupatenTujuan" name="kabupatenTujuan">
+							<select class="form-control" id="kabupatenTujuan" name="kabupatenTujuan" required>
 							</select>
 						</div>
 
 						<div class="mb-3">
 							<label for="" class="">Alamat Lengkap</label>
-							<textarea type="text" id="address" class="form-control" name="address" placeholder="Masukan Alamat Lengkap"></textarea>
+							<textarea type="text" id="address" class="form-control" name="address" placeholder="Masukan Alamat Lengkap" required></textarea>
 						</div>
 
 						<div class="mb-3">
 							<label for="" class="">Pilih Ekspedisi</label>
-							<select name="ekspedisi" id="ekspedisi" class="form-control" onchange="cekOngkir(this.value)">
+							<select name="ekspedisi" id="ekspedisi" class="form-control" onchange="cekOngkir(this.value)" required>
 
 								<option value="">Pilih Ekspedisi</option>
 								<option value="pos">Pos Indonesia</option>
@@ -72,12 +72,12 @@
 
 						<div class="mb-3">
 							<label for="" class="">Pilih Ongkos Kirim</label>
-							<select class="form-control" id="ongkir" name="ongkir" onchange="totalOngkir(this.value)">
+							<select class="form-control" id="ongkir" name="ongkir" onchange="totalOngkir(this.value)" required>
 							</select>
 						</div>
 
 						<div class="mb-3">
-							<textarea type="text" id="notes" class="form-control" placeholder="Catatan" name="notes"></textarea>
+							<textarea type="text" id="notes" class="form-control" placeholder="Catatan" name="notes" required></textarea>
 						</div>
 
 						<div class="mb-3" style="text-align: left;">
@@ -253,14 +253,15 @@
 			priceSpan.className = 'price';
 
 			// Gunakan `toLocaleString()` untuk memformat harga sesuai dengan standar Indonesia
-			const formattedPrice = item.productPrice.toLocaleString('id-ID', {
+			// const formattedPrice = item.productPrice.toLocaleString('id-ID', {
+			const formattedPrice = item.final_price.toLocaleString('id-ID', {
 				style: 'currency',
 				currency: 'IDR',
 				minimumFractionDigits: 0,
 			});
 
 			// Set textContent dengan format yang sudah diperoleh
-			priceSpan.textContent = `${item.quantity} x ${formattedPrice}`;
+			priceSpan.textContent = `${item.quantity} x ${item.final_price}`;
 			priceDiv.appendChild(priceSpan);
 			priceTd.appendChild(priceDiv);
 			tr.appendChild(priceTd);
@@ -271,7 +272,7 @@
 			totalPriceDiv.className = 'total-price-box';
 			const totalPriceSpan = document.createElement('span');
 			totalPriceSpan.className = 'price';
-			const totalPrice = item.quantity * item.productPrice;
+			const totalPrice = item.quantity * item.final_price;
 			const formattedTotalPrice = totalPrice.toLocaleString('id-ID', {
 				style: 'currency',
 				currency: 'IDR',
@@ -286,7 +287,6 @@
 			// Tambahkan baris ke tabel
 			cartTableBody.appendChild(tr);
 		});
-
 	}
 	// Menambahkan event listener untuk elemen select dengan ID "ongkir"
 	document.getElementById('ongkir').addEventListener('change', function() {
@@ -313,7 +313,6 @@
 		totalProdukOngkir();
 	}
 
-	// Fungsi untuk memperbarui keranjang
 	function updateCart() {
 		// Dapatkan data keranjang dari localStorage
 		let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -335,15 +334,14 @@
 
 				// Validasi kuantitas
 				if (!isNaN(newQuantity) && newQuantity >= 0) {
-				
+
 					// Dapatkan harga per item
 					const itemPrice = row.querySelector('.price-box .price');
 					const itemPriceText = itemPrice.textContent;
 					// Pisahkan kuantitas dan harga dari string
-					const [quantityText, priceText] = itemPriceText.split(' x Rp');
+					const [quantityText, priceText] = itemPriceText.split(' x ');
 					const priceValue = priceText.replace(/[^0-9]/g, '');
 					const price = parseFloat(priceValue);
-
 
 					// Validasi harga per item
 					if (!isNaN(price)) {
@@ -362,12 +360,18 @@
 
 						// Tambahkan total harga ke total keseluruhan
 						totalHargaProduk += newTotal;
-
-						// Perbarui kuantitas produk dalam data keranjang
 						const itemIndex = cart.findIndex(item => item.productId === productId);
 						if (itemIndex !== -1) {
-							cart[itemIndex].quantity = newQuantity;
+							// Periksa apakah kuantitas berubah sebelum memanggil cekDiscountQuantity
+							if (cart[itemIndex].quantity !== newQuantity) {
+								cart[itemIndex].quantity = newQuantity;
+								// Panggil fungsi cekDiscount hanya ketika kuantitas berubah
+								cekDiscountQuantity(productId, newQuantity);
+							}
 						}
+
+						
+						// Panggil fungsi cekDiscount untuk mengecek diskon berdasarkan kuantitas baru
 					} else {
 						console.error('Invalid item price');
 					}
@@ -386,9 +390,44 @@
 		const totalProduk = document.querySelector('#totalProduk');
 		totalProduk.innerHTML = `<span>Total Harga Produk:</span> ${rupiahHargaProduk}`;
 
-
 		// Simpan data keranjang kembali ke localStorage
 		localStorage.setItem('cart', JSON.stringify(cart));
+	}
+
+	function cekDiscountQuantity(productId, newQuantity) {
+		const user_id = <?php echo json_encode(isset(auth()->id) && auth()->id ? auth()->id : null); ?>;
+		const token = document.querySelector('[name=_token]').value;
+
+		$.ajax({
+			url: "<?php echo routeTo('landing/cekDiscountQuantityProduk') ?>",
+			method: "POST",
+			data: {
+				_token: token,
+				user_id: user_id,
+				quantity: newQuantity,
+				productId: productId
+			},
+			success: function(response) {
+				// Mengambil data dari localStorage
+				let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+
+				// Iterasi setiap produk dalam respons
+				let cartProduct = cartData.find(item => item.productId == response.data.id_product);
+				if (cartProduct) {
+					cartProduct.final_price = response.data.final_price;
+				}
+				// Menyimpan kembali data yang sudah diperbarui ke dalam localStorage
+				localStorage.setItem('cart', JSON.stringify(cartData));
+				updateCart();
+				location.reload();
+
+
+
+			},
+			error: function(xhr, status, error) {
+				console.error(`Error: ${error}`);
+			}
+		});
 	}
 
 
@@ -545,4 +584,5 @@
 		form.appendChild(totalOngkirInput);
 		form.appendChild(totalProdukInput);
 	}
+	
 </script>

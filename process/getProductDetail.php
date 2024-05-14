@@ -10,7 +10,7 @@ extract($_POST);
 
 $db = new Database;
 $db->query  = "SELECT
-    products.item_id id_product,
+    products.id id_product,
     products.price,
     products.description,
     products.sku,
@@ -20,9 +20,9 @@ $db->query  = "SELECT
     LEFT JOIN product_pics ON product_pics.product_id = products.id
     LEFT JOIN media ON media.id = product_pics.media_id
     LEFT JOIN inventory_items ON inventory_items.id = products.item_id
-    WHERE products.status = 'Ada'
+    WHERE products.status = 'PUBLISH'
     AND products.sku > 0
-    AND products.item_id = {$product_id}";
+    AND products.id = {$product_id}";
 
 $products = $db->exec('all');
 

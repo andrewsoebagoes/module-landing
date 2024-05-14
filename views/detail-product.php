@@ -81,33 +81,7 @@
     }
 </script>
 <script>
-    function addToCart2(productId, productName, productPrice) {
-        // Ambil data keranjang dari localStorage (jika ada)
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Periksa apakah produk sudah ada di keranjang
-        let existingProduct = cart.find(item => item.productId === productId);
-
-        if (existingProduct) {
-            // Jika produk sudah ada, tambahkan jumlahnya
-            existingProduct.quantity += 1;
-        } else {
-            // Jika produk belum ada, tambahkan sebagai item baru
-            cart.push({
-                productId,
-                productName,
-                productPrice,
-                quantity: 1
-            });
-        }
-
-        // Simpan data keranjang yang diperbarui ke localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-        // Perbarui jumlah produk di tampilan keranjang
-        updateCartCount();
-
-    }
+   
 
     // Tambahkan event listener untuk tombol "Add to Cart"
     function bindAddToCartEvents() {
@@ -129,7 +103,7 @@
                 let productPrice = parseFloat(productElement.querySelector('.price').textContent.replace('Rp. ', '').replace(',', ''));
 
                 // Tambahkan produk ke keranjang
-                addToCart2(productId, productName, productPrice);
+                addToCart(productId, productName, productPrice);
 
                 // Perbarui tampilan keranjang (opsional, sesuai kebutuhan)
                 displayCartItems();

@@ -40,7 +40,7 @@
                     <label for="staticEmail" class="form-label"><strong>Upload Bukti Pembayaran</strong></label><br>
                     <input type="file" name="media" id="media" class=""><br>
                     <button type="submit" class="mt-3 btn btn-sm btn-primary">Upload</button>
-                </form>
+                
             <?php endif  ?>
         </div>
         <div class="row">
@@ -71,7 +71,7 @@
                         </tbody>
 
                     </table>
-
+                    </form>
                 </div>
                 <!-- /.cart-table -->
             </div>

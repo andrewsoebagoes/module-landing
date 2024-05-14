@@ -5,7 +5,7 @@ use Core\Database;
 $db = new Database();
 
 $db->query = "SELECT
-    products.item_id AS id_product,
+    products.id AS id_product,
     products.price,
     products.sku,
     inventory_items.name AS product_name,
@@ -16,7 +16,7 @@ $db->query = "SELECT
      LIMIT 1) AS image
 FROM products
 LEFT JOIN inventory_items ON inventory_items.id = products.item_id
-WHERE products.status = 'Ada' AND products.sku > 0";
+WHERE products.status = 'PUBLISH' AND products.sku > 0";
 
 $discount = $db->exec('all');
 
