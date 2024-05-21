@@ -82,8 +82,8 @@ echo '
                 <a href="javascript:;" id="addCart-' . $products[0]->id_product . '" class="btn btn-outline-warning" style="padding-top:15px;width:210px"><i class="fas fa-plus"></i> Tambah Ke Keranjang</a>
             </div>
         </div>
-        <p>Deskripsi :</p>
-        <p>' . $products[0]->description . '</p>
+        <div class="mb-1 mt-2 font-weight-bold">Deskripsi :</div>
+        ' . $products[0]->description . '
        
     </div>
 </div>

@@ -21,6 +21,7 @@ if (Request::isMethod('POST')) {
     $kode_transaksi = "T". date('dmYHis');
     $provinsiTujuan = explode('-', $provinsiTujuan);
     $kabupatenTujuan = explode('-', $kabupatenTujuan);
+    $kecamatanTujuan = explode('-', $kecamatanTujuan);
 
     $dataInvoices = [
         'code'              => $kode_transaksi,
@@ -42,6 +43,7 @@ if (Request::isMethod('POST')) {
         'country'       => 'Indonesia',
         'province'      => $provinsiTujuan[1],
         'city'          => $kabupatenTujuan[1],
+        'subdistrict'   => $kecamatanTujuan[1],
         'address'       => $address,
         'courier'       => $ekspedisi,
         'notes'         => $notes

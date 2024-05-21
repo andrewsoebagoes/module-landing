@@ -1,10 +1,10 @@
 <?php
-
+$id_kab = explode('-', $_GET['id_kab']);
 $curl = curl_init();
 $apiKey = env('RAJA_ONGKIR_KEY');
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://pro.rajaongkir.com/api/province",
+  CURLOPT_URL => "https://pro.rajaongkir.com/api/subdistrict?city=".$id_kab[0],
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -18,12 +18,15 @@ curl_setopt_array($curl, array(
 
 $response = curl_exec($curl);
 $err = curl_error($curl);
+
 curl_close($curl);
 
 $data = json_decode($response);
 
-echo '<option value="">Pilih Provinsi</option>';
-foreach($data->rajaongkir->results as $provinsi){
-    echo '<option value="'.$provinsi->province_id.'-'.$provinsi->province.'">'.$provinsi->province.'</option>';
+
+echo '<option value="">Pilih Kecamatan</option>';
+foreach($data->rajaongkir->results as $kecamatan){
+    echo '<option value="'.$kecamatan->subdistrict_id.'-'.$kecamatan->subdistrict_name.'">'.$kecamatan->subdistrict_name.'</option>';
 
 }
+

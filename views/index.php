@@ -76,7 +76,7 @@
                 user_id: user_id
             },
             success: function(response) {
-                // console.log(response);
+                console.log(response);
                 $('.productDiscountAll').html(response);
                 bindAddToCartEvents()
             },

@@ -50,7 +50,13 @@
 
 						<div class="mb-3">
 							<label for="" class="">Pilih Kabupaten</label>
-							<select class="form-control" id="kabupatenTujuan" name="kabupatenTujuan" required>
+							<select class="form-control" id="kabupatenTujuan" name="kabupatenTujuan" onchange="getKecamatanTujuan(this.value)" required>
+							</select>
+						</div>
+						
+						<div class="mb-3">
+							<label for="" class="">Pilih Kecamatan</label>
+							<select class="form-control" id="kecamatanTujuan" name="kecamatanTujuan" required>
 							</select>
 						</div>
 
@@ -77,6 +83,8 @@
 						</div>
 
 						<div class="mb-3">
+						<label for="" class="">Catatan</label>
+
 							<textarea type="text" id="notes" class="form-control" placeholder="Catatan" name="notes" required></textarea>
 						</div>
 
@@ -136,11 +144,24 @@
 			}
 		});
 	}
+	
+	function getKecamatanTujuan(idKab) {
+		$.ajax({
+			url: "<?php echo routeTo('landing/getKecamatan') ?>" + "?id_kab=" + idKab,
+			method: "GET",
+			success: function(response) {
+				$('#kecamatanTujuan').html(response);
+			},
+			error: function(xhr, status, error) {
+				console.error(`Error: ${error}`);
+			}
+		});
+	}
 
 	// Fungsi untuk mengecek ongkos kirim
 	function cekOngkir() {
 
-		const kabupatenTujuan = $('#kabupatenTujuan').val();
+		const kecamatanTujuan = $('#kecamatanTujuan').val();
 		const ekspedisi = $('#ekspedisi').val();
 		const rows = document.querySelectorAll('.cart-table tbody tr');
 		let quantity = 0;
@@ -159,7 +180,7 @@
 			method: "POST",
 			data: {
 				_token: document.querySelector('[name=_token]').value,
-				destination: kabupatenTujuan,
+				kecamatan: kecamatanTujuan,
 				weight: quantity * 1000,
 				courier: ekspedisi
 			},

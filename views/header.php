@@ -79,7 +79,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="top-bar-left">
-                                <p><i class="far fa-flag"></i><a href="contact.html"><?= env('APP_ADDRESS') ?></a></p>
+                                <p><i class="far fa-flag"></i><a href="#"><?= env('APP_ADDRESS') ?></a></p>
 
                                 <p><i class="far fa-envelope"></i><a href="#"><?= env('APP_EMAIL') ?></a></p>
                             </div>

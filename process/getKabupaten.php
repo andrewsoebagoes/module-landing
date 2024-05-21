@@ -4,7 +4,7 @@ $curl = curl_init();
 $apiKey = env('RAJA_ONGKIR_KEY');
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.rajaongkir.com/starter/city?province=".$id_provinsi[0],
+  CURLOPT_URL => "https://pro.rajaongkir.com/api/city?province=".$id_provinsi[0],
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
