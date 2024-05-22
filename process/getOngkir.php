@@ -33,13 +33,13 @@ if ($err) {
 } else {
     $data = json_decode($response, true);
     echo '<option value="">Pilih Ongkir</option>';
-    if (isset($data['rajaongkir']['results'][0]['costs'])) {
+    if (isset($data['rajaongkir']['results'][0]['costs']) && $data['rajaongkir']['results'][0]['costs']) {
         $costs = $data['rajaongkir']['results'][0]['costs'];
         foreach ($costs as $cost) {
             echo '<option value="'.$cost['service']. '-' . $cost['cost'][0]['value'] .'">'.$cost['service']. ' - ' . number_format($cost['cost'][0]['value']) .'</option>';
         }
     } else {
-        echo "Tidak ada data ongkos kirim yang tersedia.";
+        echo '<option value="">Ekspedisi tidak tersedia</option>';
     }
 }
 ?>
