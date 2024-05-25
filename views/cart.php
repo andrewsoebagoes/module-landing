@@ -78,7 +78,6 @@
 								<option value="lion">Lion</option>
 								<option value="indah">Indah</option>
 								<option value="ide">IDexpress</option>
-								
 							</select>
 						</div>
 

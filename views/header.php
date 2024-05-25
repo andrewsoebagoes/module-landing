@@ -201,7 +201,7 @@
             <div id="mobilemenu" class="accordion">
                 <ul>
                     <li class="mob-logo"><a href="<?= routeTo('landing/index') ?>">
-                            <img src="<?= asset('assets/landing/media/images/logo.png'); ?>" alt="">
+                            <img src="<?= env('APP_LOGO', asset('assets/landing/media/images/logo.png')) ?>" alt="">
                         </a></li>
                     <li><a href="#" class="closeme"><i class="flaticon-close"></i></a></li>
                     <li class="out-link"><a href="<?= routeTo('landing/index') ?>">Home</a></li>
